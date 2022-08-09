@@ -27,9 +27,10 @@
                 }
                 let value = document.getElementById("input").value;
                 let prediction = result.intercept + result.slope * value;
-                if(1.0 - (prediction % 1) <= 0.0001){
+                if(1.0 - (prediction % 1) <= 0.01){
                     prediction = Math.round(prediction);
                 }
+                prediction = Math.round(prediction * 1000) / 1000;
 
                 if(prediction == NaN){
                     document.getElementById("result").innerText = "Error: prediction input not in correct format.";

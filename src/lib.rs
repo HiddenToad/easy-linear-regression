@@ -79,7 +79,7 @@ impl LinearRegressionModel {
         for x in (1..=100000).rev() {
             let mut tr = TrainingResult::new();
             tr.min_error = 0.;
-            let learn_rate: f64 = x as f64 / 1000000.;
+            let learn_rate: f64 = x as f64 / 10000000.;
 
             for i in 0..self.graph.len() * self.epochs {
                 let prediction = tr.intercept + tr.slope * self.graph[i % self.graph.len()].0;

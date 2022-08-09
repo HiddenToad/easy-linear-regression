@@ -32,7 +32,7 @@
                 }
                 prediction = Math.round(prediction * 1000) / 1000;
 
-                if(isNan(prediction)){
+                if(Number.isNan(prediction)){
                     document.getElementById("result").innerText = "Error: prediction input not in correct format.";
                 }
                 else{

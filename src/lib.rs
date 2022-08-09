@@ -89,7 +89,7 @@ impl LinearRegressionModel {
                     tr.min_error += error.abs();
                 }
             }
-            tr.min_error /= (self.graph.len() - 1) as f64;
+            tr.min_error /= ((self.graph.len() * self.epochs) as f64 - 1.);
             if tr.min_error.abs() < self.best_result.min_error {
                 tr.min_error = tr.min_error.abs();
                 Self::close_enough(&mut tr.slope);

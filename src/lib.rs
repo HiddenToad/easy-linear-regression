@@ -76,10 +76,10 @@ impl LinearRegressionModel {
     }
 
     pub fn train(&mut self) {
-        for x in (1..=1000000).rev() {
+        for x in (1..=10000).rev() {
             let mut tr = TrainingResult::new();
             tr.min_error = 0.;
-            let learn_rate: f64 = x as f64 / 10000000.;
+            let learn_rate: f64 = x as f64 / 1000000.;
 
             for i in 0..self.graph.len() * self.epochs {
                 let prediction = tr.intercept + tr.slope * self.graph[i % self.graph.len()].0;
@@ -88,6 +88,7 @@ impl LinearRegressionModel {
                 tr.slope -= (learn_rate * error) * self.graph[i % self.graph.len()].0;
                 tr.min_error += error.abs();
             }
+            
             if tr.min_error.abs() < self.best_result.min_error {
                 tr.min_error = tr.min_error.abs();
                 Self::close_enough(&mut tr.slope);

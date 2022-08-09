@@ -17,7 +17,7 @@ fn do_train(req_body: String) -> Result<TrainingResult, ParseFloatError>{
             model.add_points(&[(line[0].parse()?, line[1].parse()?)]);
         }
 
-        model.set_epochs(model.graph.len() * 15000);
+        model.set_epochs(model.graph.len() * 20000);
 
         model.train();
 

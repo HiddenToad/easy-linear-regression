@@ -90,12 +90,12 @@ impl LinearRegressionModel {
             }
             tr.min_error /= (self.graph.len() - 1 * self.epochs) as f64 - 1.;
             
-            if tr.min_error.abs() < self.best_result.min_error {
-                tr.min_error = tr.min_error.abs();
-                Self::close_enough(&mut tr.slope);
-                Self::close_enough(&mut tr.intercept);
-                self.best_result = tr;
-            }
+
+            tr.min_error = tr.min_error.abs();
+            Self::close_enough(&mut tr.slope);
+            Self::close_enough(&mut tr.intercept);
+            self.best_result = tr;
+
         }
         println!(
             "best result:\nslope: {}\nintercept: {}\nerror: {}",

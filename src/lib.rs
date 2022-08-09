@@ -85,9 +85,7 @@ impl LinearRegressionModel {
                 let error = prediction - self.graph[i % self.graph.len()].1;
                 tr.intercept -= learn_rate * error;
                 tr.slope -= (learn_rate * error) * self.graph[i % self.graph.len()].0;
-                if error.abs() < tr.min_error / i as f64{
-                    tr.min_error += error.abs();
-                }
+                tr.min_error += error.abs();
             }
             tr.min_error /= ((self.graph.len() * self.epochs) as f64 - 1.);
             if tr.min_error.abs() < self.best_result.min_error {

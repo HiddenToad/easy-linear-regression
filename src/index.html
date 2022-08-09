@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            let result;
+            function submit(){
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/train");
+                xhr.onload = () => {
+                    if(xhr.responseText == "INVALIDINPUT"){
+                        alert("Training failed: invalid input format.")
+                    }
+                    else{
+                        result = JSON.parse(xhr.responseText);
+                        alert("Training complete!");
+                    }
+                }
+                xhr.send("data="+document.getElementById("data").value);
+                
+            }
+
+            function predict(){
+                if(result == undefined){
+                    alert("Training not yet complete.");
+                    return;
+                }
+                let value = document.getElementById("input").value;
+                let prediction = result.intercept + result.slope * value;
+                if(1.0 - (prediction % 1) <= 0.0001){
+                    prediction = Math.round(prediction);
+                }
+
+                if(prediction == NaN){
+                    document.getElementById("result").innerText = "Error: prediction input not in correct format.";
+                }
+                else{
+                    document.getElementById("result").innerText = prediction;
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <pre>Please input training data formatted as: 
+(x, y)
+(x, y)
+etc.
+parentheses and spaces optional.
+        </pre>
+        <form action="javascript:submit()">
+            <textarea name="data" id="data" rows="30" cols="30"></textarea>
+            <input type="submit" value="Train Model">
+        </form>
+
+        <form action="javascript:predict()">
+            <input type="text" id="input">
+            <input type="submit" value="Predict inputted value">
+        </form>
+
+        <p id="result"></p>
+    </body>
+</html>

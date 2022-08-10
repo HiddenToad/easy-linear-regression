@@ -26,7 +26,6 @@ fn do_train(req_body: String) -> Result<TrainingResult, ParseFloatError>{
 
 #[get("/")]
 async fn index() -> impl Responder {
-    //todo: link to html file
     HttpResponse::Ok().body(read_to_string("src/index.html").unwrap())
 }
 

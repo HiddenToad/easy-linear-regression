@@ -32,7 +32,6 @@ async fn index() -> impl Responder {
 
 #[post("/train")]
 async fn train(req_body: String) -> impl Responder {
-    println!("{}", req_body);
     let result = do_train(req_body);
 
     match result{

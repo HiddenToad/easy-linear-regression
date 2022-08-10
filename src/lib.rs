@@ -1,5 +1,5 @@
 pub type Point = (f64, f64);
-use serde::ser::{Serialize, SerializeStruct, Serializer};
+use serde::ser::{Serialize, SerializeStruct};
 
 pub struct TrainingResult {
     min_error: f64,
@@ -22,14 +22,21 @@ impl Serialize for TrainingResult{
 }
 
 impl TrainingResult {
+    #[must_use]
     pub fn new() -> Self {
         TrainingResult {
-            min_error: 9999999999999999999999999.,
+            min_error: 9_999_999_999_999_999_999_999_999.,
             intercept: 0.,
             slope: 0.,
         }
     }
 }
+
+impl Default for TrainingResult{
+    fn default() -> Self {
+        Self::new()
+    }
+} 
 
 pub struct LinearRegressionModel {
     epochs: usize,
@@ -49,6 +56,7 @@ impl LinearRegressionModel {
         }
     }
 
+    #[must_use]
     pub fn new_uninit() -> Self {
         LinearRegressionModel {
             epochs: 100,
@@ -57,6 +65,7 @@ impl LinearRegressionModel {
         }
     }
 
+    #[must_use]
     pub fn new(input_graph: Vec<Point>) -> Self {
         LinearRegressionModel {
             epochs: 100,
@@ -100,6 +109,7 @@ impl LinearRegressionModel {
         );
     }
 
+    #[must_use]
     pub fn predict(self, input: f64) -> f64 {
         Self::round_to_n(
             self.best_result.intercept + self.best_result.slope * input,

@@ -1,6 +1,6 @@
 #![allow(non_upper_case_globals)]
 use actix_web::{get, post, App, HttpResponse, HttpServer, Responder, HttpResponseBuilder, http::StatusCode, http::header::ContentType};
-use linear_regression::{LinearRegressionModel, Point, TrainingResult};
+use linear_regression::{LinearRegressionModel, TrainingResult};
 use std::{fs::read_to_string, num::ParseFloatError};
 
 fn do_train(req_body: String) -> Result<TrainingResult, ParseFloatError>{
@@ -8,12 +8,12 @@ fn do_train(req_body: String) -> Result<TrainingResult, ParseFloatError>{
 
     let req_body = req_body
         .replace("data=", "")
-        .replace(" ", "")
-        .replace("(", "")
-        .replace(")", "");
+        .replace(' ', "")
+        .replace('(', "")
+        .replace(')', "");
     
         for line in req_body.lines() {
-            let line: Vec<&str> = line.trim().split(",").collect();
+            let line: Vec<&str> = line.trim().split(',').collect();
             model.add_points(&[(line[0].parse()?, line[1].parse()?)]);
         }
 
@@ -36,13 +36,13 @@ async fn train(req_body: String) -> impl Responder {
 
     match result{
         Ok(value) => {
-            return HttpResponseBuilder::new(StatusCode::OK)
-                .json(value);
+            HttpResponseBuilder::new(StatusCode::OK)
+                .json(value)
         }
         Err(_) => {
-            return HttpResponseBuilder::new(StatusCode::OK)
+            HttpResponseBuilder::new(StatusCode::OK)
                 .content_type(ContentType::plaintext())
-                .body("INVALIDINPUT");
+                .body("INVALIDINPUT")
         }
     }
 

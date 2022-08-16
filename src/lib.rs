@@ -65,6 +65,8 @@ impl LinearRegressionModel {
         }
     }
 
+    
+
     #[must_use]
     pub fn new(input_graph: Vec<Point>) -> Self {
         LinearRegressionModel {

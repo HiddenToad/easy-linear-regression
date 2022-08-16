@@ -88,7 +88,7 @@ impl LinearRegressionModel {
 
     pub fn train(&mut self) {
         let mut tr = TrainingResult::new();
-        let learn_rate: f64 = 0.00001;
+        let learn_rate: f64 = 0.000001;
 
         for i in 0..(self.graph.len() - 1) * self.epochs {
             let prediction = tr.intercept + tr.slope * self.graph[i % self.graph.len()].0;

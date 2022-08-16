@@ -104,11 +104,6 @@ impl LinearRegressionModel {
         Self::close_enough(&mut tr.slope);
         Self::close_enough(&mut tr.intercept);
         self.best_result = tr;
-
-        println!(
-            "best result:\nslope: {}\nintercept: {}\nerror: {}",
-            self.best_result.slope, self.best_result.intercept, self.best_result.min_error
-        );
     }
 
     #[must_use]
